@@ -1,3 +1,4 @@
+import { promise } from "zod";
 import InputBox from "./Component/InputBox";
 import useCurrencyInfo from "./Hooks/useCurrencyInfo";
 import { useState } from "react";
@@ -9,9 +10,17 @@ function App(){
   const[from, setFrom] = useState("usd")
   const[to, setTo] = useState("inr")
   const[convertedAmmount, setConvertedAmmount] = useState()
-
+  const [loading, setLoading] = useState(false)
   const currencyInfo = useCurrencyInfo(from)
   const options = Object.keys(currencyInfo)
+
+  const loadingButton = async () => {
+    setLoading(true)
+    await new Promise((resolve) => setTimeout(resolve, 200))
+    convert()
+    setLoading(false)
+  }
+
 
   const swap = () => {
     setFrom(to)
@@ -72,8 +81,14 @@ function App(){
                         
                     />
                 </div>
-                <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-500">
-                    Convert {from.toUpperCase()} To {to.toUpperCase()}
+                <button 
+                type="submit"
+                className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-500"
+                onClick={loadingButton}
+                disabled = {loading}
+                >
+                
+                    {loading ? "Converting..." : `Convert ${from.toUpperCase()} To ${to.toUpperCase()}`}
                 </button>
             </form>
         </div>
