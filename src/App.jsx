@@ -1,36 +1,57 @@
-import { promise } from "zod";
 import InputBox from "./Component/InputBox";
 import useCurrencyInfo from "./Hooks/useCurrencyInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 function App(){
 
-  const[amount, setAmount] = useState()
+  const[amount, setAmount] = useState(0)
   const[from, setFrom] = useState("usd")
   const[to, setTo] = useState("inr")
-  const[convertedAmmount, setConvertedAmmount] = useState()
-  const [loading, setLoading] = useState(false)
+  const[convertedAmmount, setConvertedAmmount] = useState("")
+  const[loading, setLoading] = useState(false)
+  const[lastEdited, setLastEdited] = useState("from")
   const currencyInfo = useCurrencyInfo(from)
   const options = Object.keys(currencyInfo)
 
+const swap = () => {
+  setFrom(to);
+  setTo(from);
+  setAmount(convertedAmmount);
+  setConvertedAmmount(amount);
+  setLastEdited(lastEdited === "from" ? "to" : "from");
+};
+
+
+const convert = () => {
+  if (!currencyInfo[to]) return;
+  if (lastEdited === "from") {
+    setConvertedAmmount((amount * currencyInfo[to]).toFixed(2)); // ✅ Updates only when clicked
+  } else {
+    setAmount((convertedAmmount / currencyInfo[to]).toFixed(2));
+  }
+};
+
+//   useEffect(() => {
+//     if (!currencyInfo[to] || isNaN(amount) || amount === ""){
+//       setConvertedAmmount(0)
+//       return;
+//     } 
+//     if (currencyInfo && currencyInfo[to]) {
+//       if (lastEdited === "from" && !isNaN(amount) && amount !== "") {
+//           setConvertedAmmount(amount * currencyInfo[to]);
+//       } else if (lastEdited === "to" && !isNaN(convertedAmmount) && convertedAmmount !== "") {
+//           setAmount(convertedAmmount / currencyInfo[to]);
+//       }
+//   }
+// }, [amount, convertedAmmount, currencyInfo, to, from, lastEdited]);
+
+
   const loadingButton = async () => {
-    setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 200))
+  setLoading(true)
+  await new Promise((resolve) => setTimeout(resolve, 200))
     convert()
     setLoading(false)
-  }
-
-
-  const swap = () => {
-    setFrom(to)
-    setTo(from)
-    setAmount(convertedAmmount)
-    setConvertedAmmount(amount)
-  }
-
-  const convert = () => {
-    setConvertedAmmount(amount * currencyInfo[to])
   }
 
     return ( 
@@ -57,8 +78,11 @@ function App(){
                         currencyOptions = {options}
                         onCurrencyChange={(currency) => setFrom(currency)}
                         selectCurrency={from}
-                        onAmountChange={(amount) => setAmount(amount)}
-                        
+                        onAmountChange={(amount) => 
+                          {
+                          setAmount(amount);
+                          setLastEdited("from");
+                        }}
                     />
                 </div>
                 <div className="relative w-full h-0.5">
@@ -75,11 +99,17 @@ function App(){
                         label="To"
                         amount = {convertedAmmount}
                         currencyOptions = {options}
-                        onCurrencyChange={(currency) => setTo(currency)}
+                        onCurrencyChange={(currency) => {
+                          setTo(currency)
+                          setLastEdited("to")
+                        }}
                         selectCurrency={to}
-                        amountDisable = {true}
-                        
-                    />
+                        // amountDisable = {false}
+                        onAmountChange={(amount) => {
+                          setConvertedAmmount(amount); // ✅ Allow manual input
+                          setLastEdited("to");
+                        }}
+                      />
                 </div>
                 <button 
                 type="submit"
@@ -88,7 +118,7 @@ function App(){
                 disabled = {loading}
                 >
                 
-                    {loading ? "Converting..." : `Convert ${from.toUpperCase()} To ${to.toUpperCase()}`}
+                    {loading ? "Converting..." : `convert ${from.toUpperCase()} To ${to.toUpperCase()}`}
                 </button>
             </form>
         </div>
