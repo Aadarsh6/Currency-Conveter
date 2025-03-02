@@ -9,7 +9,6 @@ useEffect(()=>{
     .then((res) => setData(res[currency]))
 },[currency])
 
-    console.log(currency);
     return data
 }
 export default useCurrencyInfo
