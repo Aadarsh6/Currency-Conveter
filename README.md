@@ -1,24 +1,24 @@
 # Currency Converter App
 
-## Ì≥å Overview
+## Overview
 
 This is a simple **Currency Converter Web App** built using **React.js**. It allows users to convert amounts between different currencies using real-time exchange rates.
 
-## Ì∫Ä Features
+## Features
 
-- Ì¥Ñ **Swap Currencies** ‚Äì Quickly switch between the 'From' and 'To' currencies.
-- ‚ö° **Instant Conversion** ‚Äì Convert values dynamically.
-- Ìºé **Live Exchange Rates** ‚Äì Fetches real-time currency data.
-- Ìæ® **Modern UI** ‚Äì A sleek and minimal interface.
+- **Swap Currencies** ‚Äì Quickly switch between the 'From' and 'To' currencies.
+- ‚ö°**Instant Conversion** ‚Äì Convert values dynamically.
+- **Live Exchange Rates** ‚Äì Fetches real-time currency data.
+- **Modern UI** ‚Äì A sleek and minimal interface.
 
-## Ìª†Ô∏è Technologies Used
+## Technologies Used
 
 - **React.js** ‚Äì Frontend framework
 - **Tailwind CSS** ‚Äì Styling and layout
 - **Custom Hooks** ‚Äì To fetch and manage currency data
 - **useState & useEffect** ‚Äì State management
 
-## Ì≥Ç Folder Structure
+## Folder Structure
 
 ```
 Currency-Converter/
@@ -34,7 +34,7 @@ Currency-Converter/
 ‚îÇ‚îÄ‚îÄ package.json             # Dependencies and scripts
 ```
 
-## Ì≥¶ Installation & Setup
+## Installation & Setup
 
 1. Clone the repository:
    ```bash
@@ -51,21 +51,21 @@ Currency-Converter/
    ```
 4. Open [**http://localhost:3000/**](http://localhost:3000/) in your browser.
 
-## Ì¥ß Usage
+## Usage
 
 1. Enter the amount in the **'From'** input box.
 2. Select the currencies you want to convert between.
 3. Click the **Convert** button to get the converted amount.
 4. Use the **Swap** button to reverse currencies instantly.
 
-## Ì≤° Future Improvements
+## Future Improvements
 
 - Add a **currency selection dropdown**.
 - Implement **historical exchange rates**.
 - Improve UI with animations.
 
-## Ì≥ù License
+## License
 
-This project is open-source under the [MIT License](LICENSE). Feel free to contribute! Ì∫Ä
+This project is open-source under the [MIT License](LICENSE). Feel free to contribute! ÔøΩÔøΩÔøΩ
 
 
