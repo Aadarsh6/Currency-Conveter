@@ -40,6 +40,8 @@ function InputBox({
                         disabled = {currenctDisable}
                         
                     >
+
+{/* currencyOptions is an array that holds the list of available currency codes (e.g., "USD", "INR", "EUR"). It is used to populate the dropdown menu for currency selection. */}
                         {currencyOptions.map((currency) => (
                                                     <option key={currency} value={currency}>
                                                     {currency}

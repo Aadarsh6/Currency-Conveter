@@ -29,7 +29,7 @@ const convert = () => {
   // If a user tries to convert before the data is ready, currencyInfo[to] will be undefined, causing an error.
   if (lastEdited === "from") {
     setConvertedAmmount((amount * currencyInfo[to]).toFixed(2)); // ✅ Updates only when clicked
-  } else {
+  } else {  //IF lastEdited == "from"
     setAmount((convertedAmmount / currencyInfo[to]).toFixed(2));
   }
 };
