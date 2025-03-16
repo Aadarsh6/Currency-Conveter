@@ -10,8 +10,9 @@ function App(){
   const[to, setTo] = useState("inr")
   const[convertedAmmount, setConvertedAmmount] = useState("")
   const[loading, setLoading] = useState(false)
-  const[lastEdited, setLastEdited] = useState("from")
-  const currencyInfo = useCurrencyInfo(from)
+  const[lastEdited, setLastEdited] = useState("from") //If we initialized lastEdited with from: lastEdited would store "usd", not "from".
+  //lastEdited should store which field the user last changed ("from" or "to"), not the currency itself. 
+  const currencyInfo = useCurrencyInfo(from) //This will acess the value we pass in from
   const options = Object.keys(currencyInfo)
 
 const swap = () => {
@@ -24,7 +25,8 @@ const swap = () => {
 
 
 const convert = () => {
-  if (!currencyInfo[to]) return;
+  if (!currencyInfo[to]) return; //currencyInfo is fetched from an API, so it may not be available immediately.
+  // If a user tries to convert before the data is ready, currencyInfo[to] will be undefined, causing an error.
   if (lastEdited === "from") {
     setConvertedAmmount((amount * currencyInfo[to]).toFixed(2)); // ✅ Updates only when clicked
   } else {
