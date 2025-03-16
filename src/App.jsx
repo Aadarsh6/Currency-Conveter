@@ -25,8 +25,11 @@ const swap = () => {
 
 
 const convert = () => {
-  if (!currencyInfo[to]) return; //currencyInfo is fetched from an API, so it may not be available immediately.
+  if (!currencyInfo[to]){ 
+    alert("Currency data not available. Please try again later.")
+    return; //currencyInfo is fetched from an API, so it may not be available immediately.
   // If a user tries to convert before the data is ready, currencyInfo[to] will be undefined, causing an error.
+  }
   if (lastEdited === "from") {
     setConvertedAmmount((amount * currencyInfo[to]).toFixed(2)); // ✅ Updates only when clicked
   } else {  //IF lastEdited == "from"
@@ -74,9 +77,14 @@ const convert = () => {
             >
                 <div className="w-full mb-1 font-semibold">
                   
+
+{/* ✔ "From" input gets amount
+✔ "To" input gets convertedAmmount
+✔ Updates lastEdited to track the last modified input */}
+
                     <InputBox
                         label="From"
-                        amount = {amount}
+                        amount = {amount} //"From" input gets amount
                         currencyOptions = {options}
                         onCurrencyChange={(currency) => setFrom(currency)}
                         selectCurrency={from}
@@ -99,7 +107,7 @@ const convert = () => {
                 <div className="w-full mt-1 mb-4 font-semibold">
                     <InputBox
                         label="To"
-                        amount = {convertedAmmount}
+                        amount = {convertedAmmount} //"To" input gets convertedAmmount
                         currencyOptions = {options}
                         onCurrencyChange={(currency) => {
                           setTo(currency)
