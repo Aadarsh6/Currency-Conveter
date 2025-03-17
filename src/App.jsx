@@ -15,15 +15,17 @@ function App(){
   const currencyInfo = useCurrencyInfo(from) //This will acess the value we pass in from
   const options = Object.keys(currencyInfo)
   const [darkMode, setDarkMode] = useState(false)
+
   useEffect(()=>{
-    const saveMode = localStorage.getItem("darkmode") === "true";
+    const saveMode = localStorage.getItem("darkMode") === "true";
     setDarkMode(saveMode)
   }, [])
 
   const toggelFunction = () => {
     setDarkMode((prevValue)=> {
-        localStorage.getItem("darkMode", !prevValue)
-        return !prevValue
+        const newMode = !prevValue
+        localStorage.setItem("darkMode", !prevValue)
+        return newMode
       })
   }
 
@@ -80,7 +82,11 @@ const convert = () => {
 
 <div className = "p-5 flex absolute top-4 right-4 justify-end backdrop-blur-md rounded-lg shadow-lg"
 style={{
-  backgroundColor: darkMode ? "rgb(51 51 51 / 0.5)" : "rgb(255 255 255 / 0.3)" 
+  backgroundColor: darkMode ? "rgb(51 51 51 / 0.5)" : "rgb(255 255 255 / 0.3)",
+  color: darkMode ? "#fff" : "#000",
+  border: "1px solid rgba(0, 0, 0, 0.2)",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+
 }}
 >
 
