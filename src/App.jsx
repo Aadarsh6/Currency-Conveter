@@ -1,6 +1,6 @@
 import InputBox from "./Component/InputBox";
 import useCurrencyInfo from "./Hooks/useCurrencyInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 function App(){
@@ -14,6 +14,19 @@ function App(){
   //lastEdited should store which field the user last changed ("from" or "to"), not the currency itself. 
   const currencyInfo = useCurrencyInfo(from) //This will acess the value we pass in from
   const options = Object.keys(currencyInfo)
+  const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(()=>{
+    const saveMode = localStorage.getItem("darkmode") === "true";
+    setDarkMode(saveMode)
+  }, [])
+
+  const toggelFunction = () => {
+    setDarkMode((prevValue)=> {
+        localStorage.getItem("darkMode", !prevValue)
+        return !prevValue
+      })
+  }
 
 const swap = () => {
   setFrom(to);
@@ -63,9 +76,22 @@ const convert = () => {
     <div
     className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
     style={{
-        backgroundImage: `url("https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")`,
-    }}
+        backgroundImage: darkMode ? `url("https://images.pexels.com/photos/1421903/pexels-photo-1421903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")` :`url("https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")` 
+    }}>
+
+<div className = "p-6 bg-white/30 backdrop-blur-md rounded-lg shadow-lg">
+<button
+onClick={toggelFunction}
+className="px-4 py-2 text-white font-semibold rounded-md transition-all duration-300"
+style={{
+  backgroundColor : darkMode ? "#333" : "#007bff"
+}}
 >
+{darkMode ? "Light Mode 🌞" : "Dark Mode 🌜"}
+</button>
+
+</div>
+
     <div className="w-full">
         <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg px-8 py-6 backdrop-blur-sm bg-white/30">
             <form
