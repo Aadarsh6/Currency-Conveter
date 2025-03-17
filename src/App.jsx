@@ -15,7 +15,6 @@ function App(){
   const currencyInfo = useCurrencyInfo(from) //This will acess the value we pass in from
   const options = Object.keys(currencyInfo)
   const [darkMode, setDarkMode] = useState(false)
-
   useEffect(()=>{
     const saveMode = localStorage.getItem("darkmode") === "true";
     setDarkMode(saveMode)
@@ -125,7 +124,11 @@ style={{
                     <button
                         type="button"
                         className="absolute left-1/2 font-semibold -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-teal-500 text-white px-2 py-0.5 hover:bg-blue-500"
+                        style={{
+                          backgroundColor : darkMode ? "#333" : "#007bff"
+                        }}
                         onClick={swap}
+
                     >
                         swap
                     </button>
@@ -149,7 +152,13 @@ style={{
                 </div>
                 <button 
                 type="submit"
-                className="w-full bg-blue-600 text-white font-semibold px-4 py-3 rounded-lg hover:bg-blue-500"
+                className="w-full text-white font-semibold px-4 py-3 rounded-lg hover:bg-blue-500"
+                style={{
+                  backgroundColor : 
+                  (darkMode ? "#333" : "#0056b3") 
+                }}
+
+
                 onClick={loadingButton}
                 disabled = {loading}
                 >
